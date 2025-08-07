@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ca_tramites', function (Blueprint $table) {
+        Schema::create('ca_tipo_usuarios', function (Blueprint $table) {
             $table->id();
-            $table->integer('orden')->nullable();
+            $table->string('tipo');
             $table->string('descripcion');
             $table->string('detalle')->nullable();
             $table->boolean('estatus');
-            $table->json('tipo_usuarios_restringidos')->nullable();
-            //$table->foreignId('ca_tipo_usuario_id');
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ca_tramites');
+        Schema::dropIfExists('ca_tipo_usuarios');
     }
 };

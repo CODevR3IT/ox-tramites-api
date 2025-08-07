@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tramite;
-use App\Services\TramiteService;
+use App\Models\Subtramite;
 use Illuminate\Http\Request;
+use App\Services\SubtramiteService;
 
-class TramiteController extends Controller
+class SubtramiteController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return response()->json(Tramite::all(), 200);
+        return response()->json(Subtramite::all(), 200);
     }
 
     /**
@@ -21,15 +21,15 @@ class TramiteController extends Controller
      */
     public function create(Request $request)
     {
-        $validate = $request->validate([
-            'orden'=>'integer:strict|numeric:strict|max:999',
+         $validate = $request->validate([            
             'descripcion'=>'required|string|max:255',
             'detalle'=>'string|max:999',
+            'ca_tramite_id'=>'required|exists:App\Models\Tramite,id',
             'tipo_usuarios_restringidos' => 'json',
             //'ca_tipo_usuario_id'=>'required|exists:App\Models\TipoUsuario,id',
         ]);
 
-        return TramiteService::create($validate);
+        return SubtramiteService::create($validate);
     }
 
     /**
@@ -44,8 +44,8 @@ class TramiteController extends Controller
      * Display the specified resource.
      */
     public function show(Request $request)
-    {        
-        return TramiteService::show($request);
+    {
+        return SubtramiteService::show($request);
     }
 
     /**
@@ -62,15 +62,20 @@ class TramiteController extends Controller
     public function update(Request $request)
     {
         $validate = $request->validate([
-            'id'=>'required|exists:App\Models\Tramite,id',
-            'orden'=>'integer:strict|numeric:strict|max:999',
+            'id'=>'required|exists:App\Models\Subtramite,id',            
             'descripcion'=>'string|max:255',
             'detalle'=>'string|max:999',
             'estatus'=>'boolean:strict',
+            'is_cita'=>'boolean:strict',
+            'is_pago'=>'boolean:strict',
+            'config' => 'json',
+            'url_file'=>'string|max:500',
+            'files' => 'json',
+            'ca_tramite_id'=>'exists:App\Models\Tramite,id',
             'tipo_usuarios_restringidos' => 'json',
-            //'ca_tipo_usuario_id'=>'required|exists:App\Models\TipoUsuario,id',
         ]);
-        return TramiteService::update($validate);
+
+        return SubtramiteService::update($validate);
     }
 
     /**
@@ -79,9 +84,8 @@ class TramiteController extends Controller
     public function destroy(Request $request)
     {
         $validate = $request->validate([
-            //'id'=>'required|integer:strict|numeric:strict|max:999',
-            'id'=>'required|exists:App\Models\Tramite,id',
+            'id'=>'required|exists:App\Models\Subtramite,id',
         ]);
-        return TramiteService::delete($validate);
+        return SubtramiteService::delete($validate);
     }
 }
