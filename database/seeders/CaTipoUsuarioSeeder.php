@@ -14,10 +14,10 @@ class CaTipoUsuarioSeeder extends Seeder
     public function run(): void
     {
         $tiposUsuarios = [
-            ['tipo'=>'F','descripcion'=>'Contribuyente (Persona Fisica)', 'estatus'=>true],
-            ['tipo'=>'M','descripcion'=>'Contribuyente (Persona Noral)', 'estatus'=>true],
-            ['tipo'=>'N','descripcion'=>'Notario', 'estatus'=>true],
-            ['tipo'=>'I','descripcion'=>'Institución (Persona Noral)', 'estatus'=>true],
+            ['tipo'=>'F','descripcion'=>'Contribuyente (Persona Fisica)', 'estatus'=>true, 'created_at' => DB::raw('now()')],
+            ['tipo'=>'M','descripcion'=>'Contribuyente (Persona Noral)', 'estatus'=>true, 'created_at' => DB::raw('now()')],
+            ['tipo'=>'N','descripcion'=>'Notario', 'estatus'=>true, 'created_at' => DB::raw('now()')],
+            ['tipo'=>'I','descripcion'=>'Institución (Persona Noral)', 'estatus'=>true, 'created_at' => DB::raw('now()')],
         ];
 
         DB::table('ca_tipo_usuarios')->insert($tiposUsuarios);

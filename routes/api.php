@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CampoSubtramiteController;
 use App\Http\Controllers\TramiteController;
 use App\Http\Controllers\SubtramiteController;
 use App\Http\Controllers\CatalogoController;
@@ -25,7 +26,17 @@ Route::prefix('subtramite')->controller(SubtramiteController::class)->group(func
     Route::post('crea','create');
     Route::patch('actualiza','update');
     Route::delete('borra','destroy');
+
+    Route::prefix('campo')->controller(CampoSubtramiteController::class)->group(function () {
+        Route::get('','index');
+        Route::get('obten','show');
+        Route::post('crea','create');
+        Route::patch('actualiza','update');
+        Route::delete('borra','destroy');
+    });
 });
+
+
 
 Route::prefix('catalogo')->controller(CatalogoController::class)->group(function () {
     Route::get('tipoUsuario','indexTipoUsuario');
@@ -33,4 +44,16 @@ Route::prefix('catalogo')->controller(CatalogoController::class)->group(function
     Route::post('creaTipoUsuario','createTipoUsuario');
     Route::patch('actualizaTipoUsuario','updateTipoUsuario');
     Route::delete('borraTipoUsuario','destroyTipoUsuario');
+
+    Route::get('validacion','indexValidacion');
+    Route::get('obtenValidacion','showValidacion');
+    Route::post('creaValidacion','createValidacion');
+    Route::patch('actualizaValidacion','updateValidacion');
+    Route::delete('borraValidacion','destroyValidacion');
+
+    Route::get('tipoCampo','indexTipoCampo');
+    Route::get('obtenTipoCampo','showTipoCampo');
+    Route::post('creaTipoCampo','createTipoCampo');
+    Route::patch('actualizaTipoCampo','updateTipoCampo');
+    Route::delete('borraTipoCampo','destroyTipoCampo');
 });

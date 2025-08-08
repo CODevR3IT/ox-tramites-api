@@ -29,8 +29,8 @@ class TipoUsuarioService
         $id = $tipoUsuarioValidado['id'];
         unset($tipoUsuarioValidado['id']);
         $where = $tipoUsuarioValidado;        
-        $tramite = TipoUsuario::where('id', $id)->update($where);      
-        return $tramite;
+        $tipoUsuario = TipoUsuario::where('id', $id)->update($where);      
+        return $tipoUsuario;
     }
     
     public static function delete($tipoUsuarioValidado)

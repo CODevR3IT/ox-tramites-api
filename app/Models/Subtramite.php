@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Subtramite extends Model
 {
@@ -52,5 +53,10 @@ class Subtramite extends Model
     public function tramite(): BelongsTo
     {
         return $this->belongsTo(Tramite::class);
+    }
+
+    public function campoSubtramite(): HasMany
+    {
+        return $this->hasMany(CampoSubtramite::class, 'ca_subtramite_id', 'id');
     }
 }
