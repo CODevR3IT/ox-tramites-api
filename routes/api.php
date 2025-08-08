@@ -4,6 +4,7 @@ use App\Http\Controllers\CampoSubtramiteController;
 use App\Http\Controllers\TramiteController;
 use App\Http\Controllers\SubtramiteController;
 use App\Http\Controllers\CatalogoController;
+use App\Http\Controllers\FileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,11 @@ Route::prefix('subtramite')->controller(SubtramiteController::class)->group(func
         Route::post('crea','create');
         Route::patch('actualiza','update');
         Route::delete('borra','destroy');
+    });
+
+    Route::prefix('file')->controller(FileController::class)->group(function () {
+        Route::get('obten','show');
+        Route::post('guardaArchivo','create');
     });
 });
 
