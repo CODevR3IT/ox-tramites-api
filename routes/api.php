@@ -62,4 +62,16 @@ Route::prefix('catalogo')->controller(CatalogoController::class)->group(function
     Route::post('creaTipoCampo','createTipoCampo');
     Route::patch('actualizaTipoCampo','updateTipoCampo');
     Route::delete('borraTipoCampo','destroyTipoCampo');
+
+    Route::get('tipoEstatus','indexTipoEstatus');
+    Route::get('obtenTipoEstatus','showTipoEstatus');
+    Route::post('creaTipoEstatus','createTipoEstatus');
+    Route::patch('actualizaTipoEstatus','updateTipoEstatus');
+    Route::delete('borraTipoEstatus','destroyTipoEstatus');
+
+    Route::get('estatus','indexEstatus');
+    Route::get('obtenEstatus','showEstatus');
+    Route::post('creaEstatus','createEstatus');
+    Route::patch('actualizaEstatus','updateEstatus');
+    Route::delete('borraEstatus','destroyEstatus');
 });

@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\TipoUsuario;
 use App\Models\Validacion;
 use App\Models\TipoCampo;
+use App\Models\TipoEstatus;
+use App\Models\Estatus;
 use App\Services\TipoUsuarioService;
 use App\Services\ValidacionService;
 use App\Services\TipoCampoService;
+use App\Services\TipoEstatusService;
+use App\Services\EstatusService;
 use Illuminate\Http\Request;
 
 class CatalogoController extends Controller
@@ -164,4 +168,89 @@ class CatalogoController extends Controller
         ]);
         return TipoCampoService::delete($validate);
     }
+
+    /****************************************Tipo Estatus****************************************/
+
+    public function indexTipoEstatus()
+    {
+        return response()->json(TipoEstatus::all(),200);
+    }
+    
+    public function createTipoEstatus(Request $request)
+    {
+        $validate = $request->validate([
+            'descripcion'=>'required|string|max:255',
+        ]);
+       
+        return TipoEstatusService::create($validate);
+    }
+
+    public function showTipoEstatus(Request $request)
+    {
+        return TipoEstatusService::show($request);
+    }
+    
+    public function updateTipoEstatus(Request $request)
+    {
+        $validate = $request->validate([
+            'id'=>'required|exists:App\Models\TipoEstatus,id',
+            'descripcion'=>'string|max:255',
+        ]);
+        return TipoEstatusService::update($validate);
+    }
+    
+    public function destroyTipoEstatus(Request $request)
+    {
+        $validate = $request->validate([
+            'id'=>'required|exists:App\Models\TipoEstatus,id',
+        ]);
+        return TipoEstatusService::delete($validate);
+    }
+
+    /****************************************Estatus****************************************/
+
+     public function indexEstatus()
+    {
+        return response()->json(Estatus::all(),200);
+    }
+    
+    public function createEstatus(Request $request)
+    { error_log(json_encode($request));
+        $validate = $request->validate([
+            'descripcion'=>'required|string|max:255',
+            'asunto_correo'=>'string|max:999',
+            'contenido_correo'=>'string|max:10000',
+            'estatus'=>'boolean:strict',
+            'ca_tipo_estatus_id'=>'required|exists:App\Models\TipoEstatus,id',
+        ]);
+       
+        return EstatusService::create($validate);
+    }
+
+    public function showEstatus(Request $request)
+    {
+        return EstatusService::show($request);
+    }
+    
+    public function updateEstatus(Request $request)
+    {
+        $validate = $request->validate([
+            'id'=>'required|exists:App\Models\Estatus,id',
+            'descripcion'=>'string|max:255',
+            'asunto_correo'=>'string|max:999',
+            'contenido_correo'=>'string|max:5000',
+            'estatus'=>'boolean:strict',
+            'ca_tipo_estatus_id'=>'exists:App\Models\TipoEstatus,id',
+        ]);
+        return EstatusService::update($validate);
+    }
+    
+    public function destroyEstatus(Request $request)
+    {
+        $validate = $request->validate([
+            'id'=>'required|exists:App\Models\Estatus,id',
+        ]);
+        return EstatusService::delete($validate);
+    }
+
 }
