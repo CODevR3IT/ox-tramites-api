@@ -251,6 +251,6 @@ class CatalogoController extends Controller
             'id'=>'required|exists:App\Models\Estatus,id',
         ]);
         return EstatusService::delete($validate);
-    }
+    }    
 
 }
