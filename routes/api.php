@@ -74,4 +74,23 @@ Route::prefix('catalogo')->controller(CatalogoController::class)->group(function
     Route::post('creaEstatus','createEstatus');
     Route::patch('actualizaEstatus','updateEstatus');
     Route::delete('borraEstatus','destroyEstatus');
+
+    Route::get('catalogos','indexCatalogos');
+    Route::get('obtenCatalogo','showCatalogo');
+    Route::post('creaCatalogo','createCatalogo');
+    Route::patch('actualizaCatalogo','updateCatalogo');
+    Route::delete('borraCatalogo','destroyCatalogo');
+
+    Route::get('camposCatalogo','indexCampoCatalogo');
+    Route::get('obtenCampoCatalogo','showCampoCatalogo');
+    Route::post('creaCampoCatalogo','createCampoCatalogo');
+    Route::patch('actualizaCampoCatalogo','updateCampoCatalogo');
+    Route::delete('borraCampoCatalogo','destroyCampoCatalogo');
+
+    Route::get('datosCatalogo','indexDatosCatalogo');
+    Route::get('obtenDatoCatalogo','showDatoCatalogo');
+    Route::get('obtenCatalogoComoCampo','showCatalogoComoCampo');
+    Route::post('creaDatoCatalogo','createDatoCatalogo');
+    Route::patch('actualizaDatoCatalogo','updateDatoCatalogo');
+    Route::delete('borraDatoCatalogo','destroyDatoCatalogo');
 });
