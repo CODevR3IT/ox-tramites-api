@@ -93,4 +93,5 @@ Route::prefix('catalogo')->controller(CatalogoController::class)->group(function
     Route::post('creaDatoCatalogo','createDatoCatalogo');
     Route::patch('actualizaDatoCatalogo','updateDatoCatalogo');
     Route::delete('borraDatoCatalogo','destroyDatoCatalogo');
+    Route::post('cargaArchivoCatalogo','cargaArchivoCatalogo');
 });

@@ -50,7 +50,7 @@ class DatoCatalogoService
     }
 
     public static function create($datoCatalogoValidado)
-    {
+    {         
        $datoCatalogo = DatoCatalogo::create($datoCatalogoValidado);       
         return $datoCatalogo;
     }

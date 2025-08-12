@@ -395,4 +395,23 @@ class CatalogoController extends Controller
         return DatoCatalogoService::delete($validate);
     }
 
+    public function cargaArchivoCatalogo(Request $request)
+    {
+        $archivo = $request->file('archivo');    
+        
+        $contenido = $archivo->getContent();
+        $lineas = explode("\n", trim($contenido));
+        foreach($lineas as $linea){
+            $elementos = explode('|',$linea);
+            //$jsonData = json_decode(trim($elementos[0]), true);
+            print_r(trim($elementos[0]));
+            $jsonData = trim($elementos[0]);
+            DatoCatalogo::create([
+                'datos' => "$jsonData",
+                'ca_catalogo_id' => (int)trim($elementos[1])
+            ]);            
+        }
+       
+    }
+
 }
