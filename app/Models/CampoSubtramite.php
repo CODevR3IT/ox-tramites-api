@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CampoSubtramite extends Model
 {
-    protected $cast = ['campos'=>"array"];
+    protected $casts = ['campos'=>"array"];
     protected $table = "ca_campos_subtramites";
 
     protected $fillable = [
