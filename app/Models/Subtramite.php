@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Subtramite extends Model
 {
+    protected $casts = ['files'=>'array'];
     protected $table = 'ca_subtramites';
 
     protected $fillable = [
