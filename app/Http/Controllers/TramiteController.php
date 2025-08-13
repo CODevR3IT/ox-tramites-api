@@ -13,7 +13,11 @@ class TramiteController extends Controller
      */
     public function index()
     {
-        return response()->json(Tramite::all(), 200);
+        //return response()->json(Tramite::all(), 200);
+        $perPage = request()->input('per_page', 15); // 15 por defecto
+        $tramites = Tramite::paginate($perPage);
+        
+        return response()->json($tramites, 200);
     }
 
     /**
@@ -60,7 +64,8 @@ class TramiteController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request)
-    {
+    {   
+        error_log(json_encode($request['headers']));
         $validate = $request->validate([
             'id'=>'required|exists:App\Models\Tramite,id',
             'orden'=>'integer:strict|numeric:strict|max:999',
