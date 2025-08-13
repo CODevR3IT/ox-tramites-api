@@ -22,7 +22,7 @@ class CampoSubtramiteController extends Controller
     public function create(Request $request)
     {
         $validate = $request->validate([            
-            'campos'=>'required|json',
+            'campos'=>'required',
             'ca_subtramite_id'=>'required|exists:App\Models\Subtramite,id',
         ]);
 
