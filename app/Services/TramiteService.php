@@ -17,7 +17,11 @@ class TramiteService
     {
         $tipoUsuario = $this->tipoUsuarioService->tipoUsuario($request);
         //error_log($tipoUsuario[0]->id);
-        $tramites = Tramite::whereJsonDoesntContain('tipo_usuarios_restringidos', $tipoUsuario[0]->id)
+        if(isset($tipoUsuario[0]->id)){
+            $tipoUsuario = $tipoUsuario[0]->id;
+        }
+
+        $tramites = Tramite::whereJsonDoesntContain('tipo_usuarios_restringidos', $tipoUsuario)
                       ->orWhereNull('tipo_usuarios_restringidos')
                       ->get();
         return response()->json($tramites, 200);
@@ -26,6 +30,10 @@ class TramiteService
     public function show($request)
     {
         $tipoUsuario = $this->tipoUsuarioService->tipoUsuario($request);
+        if(isset($tipoUsuario[0]->id)){
+            $tipoUsuario = $tipoUsuario[0]->id;
+        }
+
         $data = $request->all();
         
         $where = [];
@@ -35,7 +43,7 @@ class TramiteService
 
         return Tramite::where($where)
             ->where(function($query) use ($tipoUsuario) {
-                $query->whereJsonDoesntContain('tipo_usuarios_restringidos', $tipoUsuario[0]->id)
+                $query->whereJsonDoesntContain('tipo_usuarios_restringidos', $tipoUsuario)
                     ->orWhereNull('tipo_usuarios_restringidos');
             })
             ->orderBy('descripcion')

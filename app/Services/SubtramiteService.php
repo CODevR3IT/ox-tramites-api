@@ -19,6 +19,10 @@ class SubtramiteService
     public function todos($request)
     {
         $tipoUsuario = $this->tipoUsuarioService->tipoUsuario($request);
+        
+        if(isset($tipoUsuario[0]->id)){
+            $tipoUsuario = $tipoUsuario[0]->id;
+        }
 
          $subtramites = Subtramite::select(
             'ca_subtramites.*', 
@@ -26,7 +30,7 @@ class SubtramiteService
         )
         ->leftJoin('ca_tramites', 'ca_subtramites.ca_tramite_id', '=', 'ca_tramites.id')
         ->where(function($query) use ($tipoUsuario) {
-            $query->whereJsonDoesntContain('ca_subtramites.tipo_usuarios_restringidos', $tipoUsuario[0]->id)
+            $query->whereJsonDoesntContain('ca_subtramites.tipo_usuarios_restringidos', $tipoUsuario)
                   ->orWhereNull('ca_subtramites.tipo_usuarios_restringidos');
         })
         ->orderBy('ca_tramites.descripcion')
@@ -38,6 +42,11 @@ class SubtramiteService
     public function show($request)
     {
         $tipoUsuario = $this->tipoUsuarioService->tipoUsuario($request);
+
+        if(isset($tipoUsuario[0]->id)){
+            $tipoUsuario = $tipoUsuario[0]->id;
+        }
+        
         $data = $request->all();
         
         $where = [];
@@ -53,7 +62,7 @@ class SubtramiteService
         ->leftJoin('ca_tramites', 'ca_subtramites.ca_tramite_id', '=', 'ca_tramites.id')
         ->where($where)
         ->where(function($query) use ($tipoUsuario) {
-            $query->whereJsonDoesntContain('ca_subtramites.tipo_usuarios_restringidos', $tipoUsuario[0]->id)
+            $query->whereJsonDoesntContain('ca_subtramites.tipo_usuarios_restringidos', $tipoUsuario)
                 ->orWhereNull('ca_subtramites.tipo_usuarios_restringidos');
         })
         ->orderBy('ca_tramites.descripcion')

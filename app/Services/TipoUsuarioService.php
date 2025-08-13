@@ -21,12 +21,17 @@ class TipoUsuarioService
     public static function tipoUsuario($request)
     {
         $user = $request->get('sso_user');
-        $tipoUsuarioLogin = $user['person']['registerType']." ".$user['person']['personType'];
-        //error_log($tipoUsuarioLogin);
-        $where[] = ["descripcion","=",$tipoUsuarioLogin];
-        return TipoUsuario::where($where)
-        ->orderBy('id')
-        ->get();
+        if(isset($user['person']['registerType']) && isset($user['person']['personType'])){
+            $tipoUsuarioLogin = trim($user['person']['registerType'])." ".trim($user['person']['personType']);
+            //error_log($tipoUsuarioLogin);
+            $where[] = ["descripcion","=",$tipoUsuarioLogin];
+            return TipoUsuario::where($where)
+            ->orderBy('id')
+            ->get();
+        }else{
+            return 0;
+        }       
+         
     }
 
     public static function create($tipoUsuarioValidado)
