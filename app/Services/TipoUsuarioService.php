@@ -18,6 +18,17 @@ class TipoUsuarioService
         ->get();
     }
 
+    public static function tipoUsuario($request)
+    {
+        $user = $request->get('sso_user');
+        $tipoUsuarioLogin = $user['person']['registerType']." ".$user['person']['personType'];
+        //error_log($tipoUsuarioLogin);
+        $where[] = ["descripcion","=",$tipoUsuarioLogin];
+        return TipoUsuario::where($where)
+        ->orderBy('id')
+        ->get();
+    }
+
     public static function create($tipoUsuarioValidado)
     {
        $tipoUsuario = TipoUsuario::create($tipoUsuarioValidado);       

@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Services\SubtramiteService;
+use App\Services\TipoUsuarioService;
+use App\Services\TramiteService;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Http;
@@ -13,7 +16,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(TipoUsuarioService::class, function ($app) {
+        return new TipoUsuarioService();
+        });
+        
+        $this->app->bind(TramiteService::class, function ($app) {
+            return new TramiteService($app->make(TipoUsuarioService::class));
+        });
+
+        $this->app->bind(SubtramiteService::class, function ($app) {
+            return new SubtramiteService($app->make(TipoUsuarioService::class));
+        });
     }
 
     /**

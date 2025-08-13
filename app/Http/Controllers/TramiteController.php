@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tramite;
+//use App\Models\Tramite;
 use App\Services\TramiteService;
 use Illuminate\Http\Request;
 
@@ -11,13 +11,15 @@ class TramiteController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(Tramite::all(), 200);
+        
         /*$perPage = request()->input('per_page', 15); // 15 por defecto
         $tramites = Tramite::paginate($perPage);
         
         return response()->json($tramites, 200);*/
+        $tramiteService = app(TramiteService::class);
+        return $tramiteService->todos($request);
     }
 
     /**
@@ -48,10 +50,9 @@ class TramiteController extends Controller
      * Display the specified resource.
      */
     public function show(Request $request)
-    {       
-        $user = $request->get('sso_user'); 
-        //print_r($user);
-        return TramiteService::show($request);
+    {
+        $tramiteService = app(TramiteService::class);       
+        return $tramiteService->show($request);
     }
 
     /**
@@ -66,8 +67,7 @@ class TramiteController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request)
-    {   
-        error_log(json_encode($request['headers']));
+    {
         $validate = $request->validate([
             'id'=>'required|exists:App\Models\Tramite,id',
             'orden'=>'integer:strict|numeric:strict|max:999',

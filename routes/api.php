@@ -38,9 +38,9 @@ Route::middleware('sso.auth')->group(function () {
             Route::delete('borra','destroy');
         });
 
-        Route::prefix('file')->controller(FileController::class)->group(function () {
-            Route::get('obten','show');
-            Route::post('guardaArchivo','create');
+        Route::prefix('file')->controller(SubtramiteController::class)->group(function () {
+            Route::get('{path}/{id}/{file}/{ext}','getFile');
+            //Route::post('guardaArchivo','create');
         });
     });
 

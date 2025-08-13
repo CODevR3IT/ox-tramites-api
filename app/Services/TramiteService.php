@@ -6,17 +6,40 @@ use App\Models\Tramite;
 
 class TramiteService
 {
-    public static function show($request)
+    protected $tipoUsuarioService;
+
+    public function __construct(TipoUsuarioService $tipoUsuarioService)
     {
+        $this->tipoUsuarioService = $tipoUsuarioService;
+    }    
+
+    public function todos($request)
+    {
+        $tipoUsuario = $this->tipoUsuarioService->tipoUsuario($request);
+        //error_log($tipoUsuario[0]->id);
+        $tramites = Tramite::whereJsonDoesntContain('tipo_usuarios_restringidos', $tipoUsuario[0]->id)
+                      ->orWhereNull('tipo_usuarios_restringidos')
+                      ->get();
+        return response()->json($tramites, 200);
+    }
+
+    public function show($request)
+    {
+        $tipoUsuario = $this->tipoUsuarioService->tipoUsuario($request);
         $data = $request->all();
+        
         $where = [];
         foreach ($data as $key => $value) {
-            $where[] = [$key,"=",$value];            
+            $where[] = [$key, "=", $value];            
         }
-        //print_r($where);
+
         return Tramite::where($where)
-        ->orderBy('descripcion')
-        ->get();
+            ->where(function($query) use ($tipoUsuario) {
+                $query->whereJsonDoesntContain('tipo_usuarios_restringidos', $tipoUsuario[0]->id)
+                    ->orWhereNull('tipo_usuarios_restringidos');
+            })
+            ->orderBy('descripcion')
+            ->get();
     }
 
     public static function create($tramiteValidado)

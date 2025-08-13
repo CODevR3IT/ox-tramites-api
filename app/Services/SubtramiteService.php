@@ -8,16 +8,55 @@ use Illuminate\Support\Arr;
 
 class SubtramiteService
 {
-    public static function show($request)
+
+    protected $tipoUsuarioService;
+
+    public function __construct(TipoUsuarioService $tipoUsuarioService)
     {
+        $this->tipoUsuarioService = $tipoUsuarioService;
+    }
+
+    public function todos($request)
+    {
+        $tipoUsuario = $this->tipoUsuarioService->tipoUsuario($request);
+
+         $subtramites = Subtramite::select(
+            'ca_subtramites.*', 
+            'ca_tramites.descripcion as tramite_descripcion'
+        )
+        ->leftJoin('ca_tramites', 'ca_subtramites.ca_tramite_id', '=', 'ca_tramites.id')
+        ->where(function($query) use ($tipoUsuario) {
+            $query->whereJsonDoesntContain('ca_subtramites.tipo_usuarios_restringidos', $tipoUsuario[0]->id)
+                  ->orWhereNull('ca_subtramites.tipo_usuarios_restringidos');
+        })
+        ->orderBy('ca_tramites.descripcion')
+        ->get();
+
+        return $subtramites;
+    }
+
+    public function show($request)
+    {
+        $tipoUsuario = $this->tipoUsuarioService->tipoUsuario($request);
         $data = $request->all();
+        
         $where = [];
         foreach ($data as $key => $value) {
-            $where[] = [$key,"=",$value];            
+            $tablePrefix = str_contains($key, '.') ? '' : 'ca_subtramites.';
+            $where[] = [$tablePrefix . $key, "=", $value];          
         }
-        //print_r($where);
-        return Subtramite::where($where)
-        ->orderBy('id')
+        
+        return Subtramite::select(
+            'ca_subtramites.*',
+            'ca_tramites.descripcion as tramite_descripcion'
+        )
+        ->leftJoin('ca_tramites', 'ca_subtramites.ca_tramite_id', '=', 'ca_tramites.id')
+        ->where($where)
+        ->where(function($query) use ($tipoUsuario) {
+            $query->whereJsonDoesntContain('ca_subtramites.tipo_usuarios_restringidos', $tipoUsuario[0]->id)
+                ->orWhereNull('ca_subtramites.tipo_usuarios_restringidos');
+        })
+        ->orderBy('ca_tramites.descripcion')
         ->get();
     }
 

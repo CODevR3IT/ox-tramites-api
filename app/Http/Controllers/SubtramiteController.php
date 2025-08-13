@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Subtramite;
+//use App\Models\Subtramite;
 use Illuminate\Http\Request;
 use App\Services\SubtramiteService;
+use Illuminate\Support\Facades\Storage;
 
 class SubtramiteController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(Subtramite::all(), 200);
+        //return response()->json(Subtramite::all(), 200);
+        $tramiteService = app(SubtramiteService::class);
+        return $tramiteService->todos($request);
     }
 
     /**
@@ -45,7 +48,9 @@ class SubtramiteController extends Controller
      */
     public function show(Request $request)
     {
-        return SubtramiteService::show($request);
+        //return SubtramiteService::show($request);
+        $subtramiteService = app(SubtramiteService::class);       
+        return $subtramiteService->show($request);
     }
 
     /**
@@ -95,5 +100,11 @@ class SubtramiteController extends Controller
             'id'=>'required|exists:App\Models\Subtramite,id',
         ]);
         return SubtramiteService::delete($validate);
+    }
+
+    public function getFile($path,$id, $file, $ext){
+        $file = urldecode($file);
+        $filepath = $path.'/'.$id . '/' . $file . '.' . $ext;
+        return Storage::download($filepath);
     }
 }
