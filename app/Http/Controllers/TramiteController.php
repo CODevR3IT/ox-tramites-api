@@ -13,11 +13,11 @@ class TramiteController extends Controller
      */
     public function index()
     {
-        //return response()->json(Tramite::all(), 200);
-        $perPage = request()->input('per_page', 15); // 15 por defecto
+        return response()->json(Tramite::all(), 200);
+        /*$perPage = request()->input('per_page', 15); // 15 por defecto
         $tramites = Tramite::paginate($perPage);
         
-        return response()->json($tramites, 200);
+        return response()->json($tramites, 200);*/
     }
 
     /**
@@ -48,7 +48,9 @@ class TramiteController extends Controller
      * Display the specified resource.
      */
     public function show(Request $request)
-    {        
+    {       
+        $user = $request->get('sso_user'); 
+        //print_r($user);
         return TramiteService::show($request);
     }
 

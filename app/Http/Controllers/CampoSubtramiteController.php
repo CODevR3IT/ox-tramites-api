@@ -41,8 +41,9 @@ class CampoSubtramiteController extends Controller
      * Display the specified resource.
      */
     public function show(Request $request)
-    {
-        return CampoSubtramiteService::show($request);
+    {        
+        return response()->json(CampoSubtramiteService::show($request), 200);
+        
     }
 
     /**

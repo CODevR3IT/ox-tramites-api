@@ -29,6 +29,10 @@ class CatalogoController extends Controller
     public function indexTipoUsuario()
     {
         return response()->json(TipoUsuario::all(),200);
+        /*$perPage = request()->input('per_page', 15); // 15 por defecto
+        $tiposUsuario = TipoUsuario::paginate($perPage);
+        
+        return response()->json($tiposUsuario, 200);*/
     }
 
     /**
