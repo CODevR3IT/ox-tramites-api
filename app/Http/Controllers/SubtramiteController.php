@@ -104,7 +104,7 @@ class SubtramiteController extends Controller
 
     public function getFile($path,$id, $file, $ext){
         $file = urldecode($file);
-        $filepath = $path.'/'.$id . '/' . $file . '.' . $ext;
+        $filepath = str_replace("\\","",$path).'/'.str_replace("\\","",$id) . '/' . str_replace("\\","",$file) . '.' . str_replace("\\","",$ext);
         return Storage::download($filepath);
     }
 }
