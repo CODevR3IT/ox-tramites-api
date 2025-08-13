@@ -90,7 +90,8 @@ class SubtramiteService
 
                     //$cleanChars = preg_replace("/[^a-zA-Z0-9\_\-]/", "", $request->input('nombre'));
                     $ruta = 'helper-file/'. $id .'/' . $subtramiteValidado['nombre'] .'.'. $ext;
-                    $url = 'helper-file/'. $id .'/' . $subtramiteValidado['nombre'] .'/'. $ext;
+                    //$url = 'helper-file/'. $id .'/' . $subtramiteValidado['nombre'] .'/'. $ext;
+                    $url = ['helper-file',$id,$subtramiteValidado['nombre'],$ext];
                     Storage::disk('local')->put(
                         $ruta,
                         base64_decode($subtramiteValidado['fileb64'])
@@ -105,7 +106,8 @@ class SubtramiteService
                     $ext1 = $subtramiteValidado['ext1'];
 
                     $ruta = 'helper-file/'. $id .'/' . $subtramiteValidado['nombre1'] .'.'.  $ext1;
-                    $url = 'helper-file/'. $id .'/' . $subtramiteValidado['nombre1'] .'/'. $ext1;
+                    //$url = 'helper-file/'. $id .'/' . $subtramiteValidado['nombre1'] .'/'. $ext1;
+                    $url = ['helper-file',$id,$subtramiteValidado['nombre'],$ext];
                     Storage::disk('local')->put(
                         $ruta,
                         base64_decode($subtramiteValidado['fileb641'])
@@ -121,7 +123,8 @@ class SubtramiteService
                     $ext2 = $subtramiteValidado['ext2'];
 
                     $ruta = 'helper-file/'. $id .'/' . $subtramiteValidado['nombre2'] .'.'.  $ext2;
-                    $url = 'helper-file/'. $id .'/' . $subtramiteValidado['nombre2'] .'/'. $ext2;
+                    //$url = 'helper-file/'. $id .'/' . $subtramiteValidado['nombre2'] .'/'. $ext2;
+                    $url = ['helper-file',$id,$subtramiteValidado['nombre'],$ext];
                     Storage::disk('local')->put(
                         $ruta,
                         base64_decode($subtramiteValidado['fileb642'])
