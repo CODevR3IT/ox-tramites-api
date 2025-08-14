@@ -58,15 +58,15 @@ class CampoSubtramiteController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request)
-    {
+    {        
         $validate = $request->validate([
             'id'=>'required|exists:App\Models\CampoSubtramite,id',
-            'campos'=>'json',
+            'campos'=>'',
             'estatus'=>'boolean:strict',
             'ca_subtramite_id'=>'exists:App\Models\Subtramite,id',
         ]);
-
-        return CampoSubtramiteService::update($validate);
+        error_log(json_encode($validate));
+        //return CampoSubtramiteService::update($validate);
     }
 
     /**
