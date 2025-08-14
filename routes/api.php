@@ -22,6 +22,7 @@ Route::middleware('sso.auth')->group(function () {
         Route::post('crea','create');
         Route::patch('actualiza','update');
         Route::delete('borra','destroy');
+        Route::get('obtenTramitesSubtramites','showTramitesSubtramites');
 
         Route::prefix('usuario')->controller(UsuarioTramiteController::class)->group(function () {
             Route::get('','index');

@@ -60,6 +60,12 @@ class TramiteController extends Controller
         return $tramiteService->show($request);
     }
 
+    public function showTramitesSubtramites(Request $request)
+    {
+        $tramiteService = app(TramiteService::class);       
+        return $tramiteService->showTramitesSubtramites($request);
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
