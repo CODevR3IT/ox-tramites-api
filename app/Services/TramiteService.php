@@ -95,7 +95,7 @@ class TramiteService
             ->orderBy('ca_tramites.descripcion')
             ->get();
 
-            $tramites[$key]['suntramites'] = $subtramites;
+            $tramites[$key]['subtramites'] = $subtramites;
 
             return $tramites;
         }
