@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Tramite;
+use Illuminate\Support\Facades\Http;
 
 class TramiteService
 {
@@ -52,7 +53,8 @@ class TramiteService
 
     public static function create($tramiteValidado)
     {
-       $tramite = Tramite::create($tramiteValidado);       
+       $tramite = Tramite::create($tramiteValidado);    
+       
         return $tramite;
     }
 

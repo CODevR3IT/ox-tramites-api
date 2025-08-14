@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 //use App\Models\Tramite;
 use App\Services\TramiteService;
+use App\Services\NotificacionService;
 use Illuminate\Http\Request;
 
 class TramiteController extends Controller
@@ -35,7 +36,11 @@ class TramiteController extends Controller
             //'ca_tipo_usuario_id'=>'required|exists:App\Models\TipoUsuario,id',
         ]);
 
-        return TramiteService::create($validate);
+        $tramite = TramiteService::create($validate);
+        $notificacion = ["title" => "Notificación para creación de tramite",
+                         "content" => "Creaste el traamite ".json_encode($tramite)];
+        NotificacionService::notifica($request,$notificacion);
+        return $tramite;
     }
 
     /**
@@ -77,7 +82,14 @@ class TramiteController extends Controller
             'tipo_usuarios_restringidos' => 'json',
             //'ca_tipo_usuario_id'=>'required|exists:App\Models\TipoUsuario,id',
         ]);
-        return TramiteService::update($validate);
+        
+
+        $tramite = TramiteService::create($validate);
+        $notificacion = ["title" => "Notificación para actualización de tramite",
+                         "content" => "Actualizaste el tramite ".json_encode($validate)];
+        NotificacionService::notifica($request,$notificacion);
+
+        return $tramite;
     }
 
     /**

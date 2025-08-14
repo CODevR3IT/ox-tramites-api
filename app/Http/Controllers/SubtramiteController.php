@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 //use App\Models\Subtramite;
 use Illuminate\Http\Request;
 use App\Services\SubtramiteService;
+use App\Services\NotificacionService;
 use Illuminate\Support\Facades\Storage;
 
 class SubtramiteController extends Controller
@@ -32,7 +33,13 @@ class SubtramiteController extends Controller
             //'ca_tipo_usuario_id'=>'required|exists:App\Models\TipoUsuario,id',
         ]);
 
-        return SubtramiteService::create($validate);
+        $subtramite = SubtramiteService::create($validate);
+
+        $notificacion = ["title" => "Notificación para creación de subtramite",
+                         "content" => "Creaste el subtramite ".json_encode($subtramite)];
+        NotificacionService::notifica($request,$notificacion);
+
+        return $subtramite;
     }
 
     /**
@@ -88,7 +95,12 @@ class SubtramiteController extends Controller
             'tipo_usuarios_restringidos' => 'json',
         ]);
 
-        return SubtramiteService::update($validate);
+        $subtramite = SubtramiteService::update($validate);
+        $notificacion = ["title" => "Notificación para actualización de subtramite",
+                         "content" => "Actualizaste el subtramite ".json_encode($validate)];
+        NotificacionService::notifica($request,$notificacion);
+
+        return $subtramite;
     }
 
     /**
