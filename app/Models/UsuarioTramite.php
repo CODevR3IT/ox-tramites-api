@@ -11,7 +11,7 @@ class UsuarioTramite extends Model
     protected $fillable = [
         'user_id',
         'datos_tramite',
-        'ca_tramite_id',
+        //'ca_tramite_id',
         'ca_subtramite_id',
         'ca_estatus_id',
     ];

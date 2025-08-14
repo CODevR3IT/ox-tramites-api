@@ -23,8 +23,8 @@ class UsuarioTramiteController extends Controller
     {
         $validate = $request->validate([
             'user_id'=>'uuid',
-            'datos_tramite'=>'required',
-            'ca_tramite_id'=>'exists:App\Models\Tramite,id',
+            'datos_tramite'=>'required',            
+            //'ca_tramite_id'=>'exists:App\Models\Tramite,id',
             'ca_subtramite_id'=>'exists:App\Models\Subtramite,id',
             'ca_estatus_id'=>'exists:App\Models\Estatus,id',
         ]);
@@ -67,7 +67,7 @@ class UsuarioTramiteController extends Controller
             'id'=>'required|exists:App\Models\UsuarioTramite,id',
             'user_id'=>'uuid',
             'datos_tramite'=>'',
-            'ca_tramite_id'=>'exists:App\Models\Tramite,id',
+            //'ca_tramite_id'=>'exists:App\Models\Tramite,id',
             'ca_subtramite_id'=>'exists:App\Models\Subtramite,id',
             'ca_estatus_id'=>'exists:App\Models\Estatus,id',
         ]);

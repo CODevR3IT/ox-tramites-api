@@ -14,11 +14,7 @@ return new class extends Migration
         Schema::create('usuario_tramite', function (Blueprint $table) {
             $table->id();
             $table->uuid('user_id');
-            $table->json('datos_tramite');
-            $table->foreignId('ca_tramite_id')
-                  ->constrained('ca_tramites')
-                  ->onDelete('cascade')
-                  ->nullable();
+            $table->json('datos_tramite');      
             $table->foreignId('ca_subtramite_id')
                   ->constrained('ca_subtramites')
                   ->onDelete('cascade')
