@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\UsuarioTramite;
 use App\Services\UsuarioTramiteService;
+use App\Services\OficioService;
 
 class UsuarioTramiteController extends Controller
 {
@@ -30,7 +31,11 @@ class UsuarioTramiteController extends Controller
         ]);
        
         $usuarioTramite = app(UsuarioTramiteService::class);
-        return $usuarioTramite->create($validate,$request);
+        $usuarioTramite->create($validate,$request);
+
+        $ofico = app(OficioService::class);
+        $ofico->createAcuse($request,$usuarioTramite);
+        
         //return UsuarioTramite::create($validate);
     }
 
