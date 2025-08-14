@@ -76,7 +76,8 @@ class TramiteService
 
         //print_r(json_decode($tramites));
         foreach($tramites as $key => $tramite){                       
-                       
+            
+            $whereS[] = ["ca_subtramites.estatus", "=", true];
             $whereS[] = ["ca_subtramites.ca_tramite_id", "=", $tramite->id];          
             
             //$where[] = [$tablePrefix . $key, "=", $value];
