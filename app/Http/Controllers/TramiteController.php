@@ -83,8 +83,8 @@ class TramiteController extends Controller
             //'ca_tipo_usuario_id'=>'required|exists:App\Models\TipoUsuario,id',
         ]);
         
-
-        $tramite = TramiteService::create($validate);
+        error_log(json_encode($validate));
+        $tramite = TramiteService::update($validate);
         $notificacion = ["title" => "Notificación para actualización de tramite",
                          "content" => "Actualizaste el tramite ".json_encode($validate)];
         NotificacionService::notifica($request,$notificacion);
