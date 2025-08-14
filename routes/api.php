@@ -5,6 +5,7 @@ use App\Http\Controllers\CampoSubtramiteController;
 use App\Http\Controllers\TramiteController;
 use App\Http\Controllers\SubtramiteController;
 use App\Http\Controllers\CatalogoController;
+use App\Http\Controllers\UsuarioTramiteController;
 use App\Http\Controllers\FileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,14 @@ Route::middleware('sso.auth')->group(function () {
         Route::post('crea','create');
         Route::patch('actualiza','update');
         Route::delete('borra','destroy');
+
+        Route::prefix('usuario')->controller(UsuarioTramiteController::class)->group(function () {
+            Route::get('','index');
+            Route::get('obten','show');
+            Route::post('crea','create');
+            Route::patch('actualiza','update');
+            Route::delete('borra','destroy');
+        });
     });
 
     Route::prefix('subtramite')->controller(SubtramiteController::class)->group(function () {

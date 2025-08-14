@@ -23,7 +23,7 @@ class TipoUsuarioService
         $user = $request->get('sso_user');
         if(isset($user['person']['registerType']) && isset($user['person']['personType'])){
             $tipoUsuarioLogin = trim($user['person']['registerType'])." ".trim($user['person']['personType']);
-            //error_log($tipoUsuarioLogin);
+            //error_log(json_encode($user));
             $where[] = ["descripcion","=",$tipoUsuarioLogin];
             return TipoUsuario::where($where)
             ->orderBy('id')
@@ -32,6 +32,13 @@ class TipoUsuarioService
             return 0;
         }       
          
+    }
+
+    public static function idUsuario($request)
+    {
+        $user = $request->get('sso_user');
+        //print_r($user);
+        return $user['id'];         
     }
 
     public static function create($tipoUsuarioValidado)

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Estatus extends Model
 {
@@ -24,5 +25,10 @@ class Estatus extends Model
     public function tipoEstatus(): BelongsTo
     {
         return $this->belongsTo(TipoEstatus::class);
+    }
+
+    public function usuarioTramite(): HasMany
+    {
+        return $this->hasMany(UsuarioTramite::class, 'ca_estatus_id', 'id');
     }
 }
