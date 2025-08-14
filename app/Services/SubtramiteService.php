@@ -71,6 +71,7 @@ class SubtramiteService
 
     public static function create($subtramiteValidado)
     {
+        error_log(json_encode($subtramiteValidado));
        $tramite = Subtramite::create($subtramiteValidado);       
         return $tramite;
     }

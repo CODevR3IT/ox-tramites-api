@@ -21,6 +21,7 @@ class Subtramite extends Model
         'url_file',
         'files',
         'ca_tramite_id',
+        'tipo_usuarios_restringidos'
     ];
     
     protected $attributes = [
