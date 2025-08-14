@@ -75,8 +75,9 @@ class TramiteService
             ->get();
 
         //print_r(json_decode($tramites));
+       
         foreach($tramites as $key => $tramite){                       
-            
+            $whereS = [];
             $whereS[] = ["ca_subtramites.estatus", "=", true];
             $whereS[] = ["ca_subtramites.ca_tramite_id", "=", $tramite->id];          
             
@@ -94,6 +95,7 @@ class TramiteService
             })
             ->orderBy('ca_tramites.descripcion')
             ->get();
+
             $tramites[$key]['subtramites'] = $subtramites;
             
         }
