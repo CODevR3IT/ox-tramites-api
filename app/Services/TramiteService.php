@@ -94,11 +94,11 @@ class TramiteService
             })
             ->orderBy('ca_tramites.descripcion')
             ->get();
-
             $tramites[$key]['subtramites'] = $subtramites;
-
-            return $tramites;
+            
         }
+        
+        return $tramites;
     }
 
     public static function create($tramiteValidado)
