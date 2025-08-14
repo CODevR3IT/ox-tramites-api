@@ -37,7 +37,7 @@ class OficioService
         $uuid = Str::uuid()->toString();
         $idUser = $this->tipoUsuarioService->idUsuario($request); 
         $directory = "{$idUser}";
-        Storage::makeDirectory($directory);
+        Storage::disk("public")->makeDirectory($directory);
         $filepath = storage_path("app/public/{$directory}/{$uuid}.docx");
         $templateProcessor->saveAs($filepath);
 
