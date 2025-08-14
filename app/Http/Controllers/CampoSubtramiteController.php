@@ -65,8 +65,8 @@ class CampoSubtramiteController extends Controller
             'estatus'=>'boolean:strict',
             'ca_subtramite_id'=>'exists:App\Models\Subtramite,id',
         ]);
-        error_log(json_encode($validate));
-        //return CampoSubtramiteService::update($validate);
+        //error_log(json_encode($validate));
+        return CampoSubtramiteService::update($validate);
     }
 
     /**
