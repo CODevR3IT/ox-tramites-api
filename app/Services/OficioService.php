@@ -21,8 +21,8 @@ class OficioService
 
     public function createAcuse($request,$infoUsu,$datosFormulario)
     {
-        //print_r("AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII".json_encode($infoUsu));
-        $nombreCompleto = $infoUsu['datos_tramite']['nombre']." ".$infoUsu['datos_tramite']['primerApellido']." ".$infoUsu['datos_tramite']['segundoApellido'];
+        //print_r($infoUsu);
+        $nombreCompleto = $infoUsu['nombre']." ".$infoUsu['primerApellido']." ".$infoUsu['segundoApellido'];
         $templatePath = storage_path("app/private/templates/template_servicios_cartograficos.docx");
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
         $templateProcessor->setValue('fecha_letra', self::fechaCadena(date("Y-m-d")));
