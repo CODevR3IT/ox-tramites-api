@@ -104,7 +104,7 @@ class TramiteService
                 })
                 ->orderBy('ca_tramites.descripcion')
                 ->get();
-                Log::error("Lo obtiene de SUBTRAMITES ".json_encode($subtramites));
+                //Log::error("Lo obtiene de SUBTRAMITES ".json_encode($subtramites));
                 $tramites[$key]['subtramites'] = $subtramites;
                 
             }
