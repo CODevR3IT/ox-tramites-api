@@ -70,7 +70,7 @@ class TramiteService
             foreach ($data as $key => $value) {
                 $where[] = [$key, "=", $value];            
             }
-            Log::error("Lo que trae where ".json_encode($where));
+            Log::error("Lo que trae wher e ".json_encode($where));
             $tramites = Tramite::where($where)
                 ->where(function($query) use ($tipoUsuario) {
                     $query->whereJsonDoesntContain('tipo_usuarios_restringidos', $tipoUsuario)
