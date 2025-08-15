@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Services\TramiteService;
 use App\Services\NotificacionService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class TramiteController extends Controller
 {
@@ -36,7 +37,7 @@ class TramiteController extends Controller
             'tipo_usuarios_restringidos' => 'json',
             //'ca_tipo_usuario_id'=>'required|exists:App\Models\TipoUsuario,id',
         ]);
-
+        Log::error("Lo que voy a mandara create ".json_encode($validate));
         $tramite = TramiteService::create($validate);
         $notificacion = ["title" => "Notificación para creación de tramite",
                          "content" => "Creaste el traamite ".json_encode($tramite)];
