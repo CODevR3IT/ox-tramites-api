@@ -59,16 +59,18 @@ class TramiteService
             try{
             //Log::error("Lo que llega en sso_user ".json_encode($request->get('sso_user')));
              $tipoUsuario = $this->tipoUsuarioService->tipoUsuario($request);
-             Log::error("Lo que refresa tipousuario ".$tipoUsuario);
+             //Log::error("Lo que refresa tipousuario ".$tipoUsuario);
             if(isset($tipoUsuario[0]->id)){
                 $tipoUsuario = $tipoUsuario[0]->id;
             }
 
             $data = $request->all();
-            Log::error("Lo que reresa data ".json_encode($data));
+            //Log::error("Lo que reresa data ".json_encode($data));
             $where = [];        
             foreach ($data as $key => $value) {
-                $where[] = [$key, "=", $value];            
+                if(!strstr($key,"/")){
+                    $where[] = [$key, "=", $value]; 
+                }           
             }
             Log::error("Lo que trae wher e ".json_encode($where));
             $tramites = Tramite::where($where)
@@ -79,7 +81,7 @@ class TramiteService
                 ->orderBy('descripcion')
                 ->get();
 
-            Log::error("Lo obtiene de tramites ".json_encode($tramites));
+            //Log::error("Lo obtiene de tramites ".json_encode($tramites));
         
             foreach($tramites as $key => $tramite){                       
                 $whereS = [];
