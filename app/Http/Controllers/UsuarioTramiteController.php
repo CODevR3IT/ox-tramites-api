@@ -34,7 +34,7 @@ class UsuarioTramiteController extends Controller
         $resCreate = $usuarioTramite->create($validate,$request);        
         
         $ofico = app(OficioService::class);
-        return $ofico->createAcuse($request,$resCreate);        
+        return $ofico->createAcuse($request,$request->get('sso_user'),$resCreate);        
         
     }
 

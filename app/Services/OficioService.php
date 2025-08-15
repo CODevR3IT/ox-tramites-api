@@ -19,10 +19,10 @@ class OficioService
         $this->tipoUsuarioService = $tipoUsuarioService;
     }
 
-    public function createAcuse($request,$datosFormulario)
+    public function createAcuse($request,$infoUsu,$datosFormulario)
     {
-        
-        $nombreCompleto = $request['datos_tramite']['nombre']." ".$request['datos_tramite']['primerApellido']." ".$request['datos_tramite']['segundoApellido'];
+        //print_r("AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII".json_encode($infoUsu));
+        $nombreCompleto = $infoUsu['datos_tramite']['nombre']." ".$infoUsu['datos_tramite']['primerApellido']." ".$infoUsu['datos_tramite']['segundoApellido'];
         $templatePath = storage_path("app/private/templates/template_servicios_cartograficos.docx");
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
         $templateProcessor->setValue('fecha_letra', self::fechaCadena(date("Y-m-d")));

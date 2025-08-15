@@ -20,6 +20,7 @@ class Tramite extends Model
     ];
     protected $attributes = [
         'estatus'=>false,
+        'is_service'=>false,
     ];
 
     public function subtramite(): HasMany
