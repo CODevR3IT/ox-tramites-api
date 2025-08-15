@@ -13,6 +13,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([CaCatalogoSeeder::class, CaDatosCatalogosSeeder::class, CaEstatusSeeder::class, CaTipoCamposSeeder::class, CaTipoUsuarioSeeder::class, CaValidacionSeeder::class]);
+        $this->call([CaCatalogoSeeder::class, CaDatosCatalogosSeeder::class, CaEstatusSeeder::class, CaTipoCampoSeeder::class, CaTipoUsuarioSeeder::class, CaValidacionSeeder::class]);
     }
 }
