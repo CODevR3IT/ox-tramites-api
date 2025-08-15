@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Tramite;
 use App\Models\Subtramite;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class TramiteService
 {
@@ -54,53 +55,64 @@ class TramiteService
 
     public function showTramitesSubtramites($request)
     {
-        $tipoUsuario = $this->tipoUsuarioService->tipoUsuario($request);
-        if(isset($tipoUsuario[0]->id)){
-            $tipoUsuario = $tipoUsuario[0]->id;
-        }
-
-        $data = $request->all();
-        
-        $where = [];        
-        foreach ($data as $key => $value) {
-            $where[] = [$key, "=", $value];            
-        }
-
-        $tramites = Tramite::where($where)
-            ->where(function($query) use ($tipoUsuario) {
-                $query->whereJsonDoesntContain('tipo_usuarios_restringidos', $tipoUsuario)
-                    ->orWhereNull('tipo_usuarios_restringidos');
-            })
-            ->orderBy('descripcion')
-            ->get();
-
-        //print_r(json_decode($tramites));
        
-        foreach($tramites as $key => $tramite){                       
-            $whereS = [];
-            $whereS[] = ["ca_subtramites.estatus", "=", true];
-            $whereS[] = ["ca_subtramites.ca_tramite_id", "=", $tramite->id];          
-            
-            //$where[] = [$tablePrefix . $key, "=", $value];
-            
-            $subtramites = Subtramite::select(
-                'ca_subtramites.*',
-                'ca_tramites.descripcion as tramite_descripcion'
-            )
-            ->leftJoin('ca_tramites', 'ca_subtramites.ca_tramite_id', '=', 'ca_tramites.id')
-            ->where($whereS)
-            ->where(function($query) use ($tipoUsuario) {
-                $query->whereJsonDoesntContain('ca_subtramites.tipo_usuarios_restringidos', $tipoUsuario)
-                    ->orWhereNull('ca_subtramites.tipo_usuarios_restringidos');
-            })
-            ->orderBy('ca_tramites.descripcion')
-            ->get();
+        try {
+             $tipoUsuario = $this->tipoUsuarioService->tipoUsuario($request);
+            if(isset($tipoUsuario[0]->id)){
+                $tipoUsuario = $tipoUsuario[0]->id;
+            }
 
-            $tramites[$key]['subtramites'] = $subtramites;
+            $data = $request->all();
             
-        }
+            $where = [];        
+            foreach ($data as $key => $value) {
+                $where[] = [$key, "=", $value];            
+            }
+
+            $tramites = Tramite::where($where)
+                ->where(function($query) use ($tipoUsuario) {
+                    $query->whereJsonDoesntContain('tipo_usuarios_restringidos', $tipoUsuario)
+                        ->orWhereNull('tipo_usuarios_restringidos');
+                })
+                ->orderBy('descripcion')
+                ->get();
+
+            //print_r(json_decode($tramites));
         
-        return $tramites;
+            foreach($tramites as $key => $tramite){                       
+                $whereS = [];
+                $whereS[] = ["ca_subtramites.estatus", "=", true];
+                $whereS[] = ["ca_subtramites.ca_tramite_id", "=", $tramite->id];          
+                
+                //$where[] = [$tablePrefix . $key, "=", $value];
+                
+                $subtramites = Subtramite::select(
+                    'ca_subtramites.*',
+                    'ca_tramites.descripcion as tramite_descripcion'
+                )
+                ->leftJoin('ca_tramites', 'ca_subtramites.ca_tramite_id', '=', 'ca_tramites.id')
+                ->where($whereS)
+                ->where(function($query) use ($tipoUsuario) {
+                    $query->whereJsonDoesntContain('ca_subtramites.tipo_usuarios_restringidos', $tipoUsuario)
+                        ->orWhereNull('ca_subtramites.tipo_usuarios_restringidos');
+                })
+                ->orderBy('ca_tramites.descripcion')
+                ->get();
+
+                $tramites[$key]['subtramites'] = $subtramites;
+                
+            }
+            
+            return $tramites;
+    
+        } catch (\Exception $e) {
+            Log::error("Error en el proceso: " . $e->getMessage(), [
+                'exception' => $e,
+                'user_id' => auth()->id(),
+                'data' => $request->all()
+            ]);
+        }
+
     }
 
     public static function create($tramiteValidado)
