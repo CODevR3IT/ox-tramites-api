@@ -21,7 +21,7 @@ class SSOAuth
         if (!$token) {
             return response()->json(['error' => 'Token no proporcionado'], Response::HTTP_UNAUTHORIZED);
         }
-        $response = Http::sso()->withToken($token)->setDefaultOption('verify', false)->get('/auth/user');
+        $response = Http::sso()->withToken($token)->withOptions(["verify"=>false])->get('/auth/user');
 
         if ($response->failed()) {
             return response()->json(['error' => 'Token inválido'], Response::HTTP_UNAUTHORIZED);
