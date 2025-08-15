@@ -32,6 +32,7 @@ class TramiteController extends Controller
             'orden'=>'integer:strict|numeric:strict|max:999',
             'descripcion'=>'required|string|max:255',
             'detalle'=>'string|max:999',
+            'is_service'=> 'boolean',
             'tipo_usuarios_restringidos' => 'json',
             //'ca_tipo_usuario_id'=>'required|exists:App\Models\TipoUsuario,id',
         ]);
@@ -89,7 +90,7 @@ class TramiteController extends Controller
             //'ca_tipo_usuario_id'=>'required|exists:App\Models\TipoUsuario,id',
         ]);
         
-        error_log(json_encode($validate));
+        //error_log(json_encode($validate));
         $tramite = TramiteService::update($validate);
         $notificacion = ["title" => "Notificación para actualización de tramite",
                          "content" => "Actualizaste el tramite ".json_encode($validate)];

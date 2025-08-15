@@ -22,7 +22,8 @@ return new class extends Migration
             $table->foreignId('ca_estatus_id')
                   ->constrained('ca_estatus')
                   ->onDelete('cascade')
-                  ->nullable();            
+                  ->nullable();
+            $table->string('folio_seguimiento');
             $table->timestamps();
         });
     }

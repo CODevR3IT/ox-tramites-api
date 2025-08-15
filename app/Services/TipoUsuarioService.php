@@ -16,7 +16,7 @@ class TipoUsuarioService
         return TipoUsuario::where($where)
         ->orderBy('id')
         ->get();
-    }
+    }    
 
     public static function tipoUsuario($request)
     {

@@ -21,10 +21,13 @@ class OficioService
 
     public function createAcuse($request,$datosFormulario)
     {
+        
+        $nombreCompleto = $request['datos_tramite']['nombre']." ".$request['datos_tramite']['primerApellido']." ".$request['datos_tramite']['segundoApellido'];
         $templatePath = storage_path("app/private/templates/template_servicios_cartograficos.docx");
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
         $templateProcessor->setValue('fecha_letra', self::fechaCadena(date("Y-m-d")));
-        $templateProcessor->setValue('suscribe', htmlspecialchars("Jose Perez Leon"));
+        $templateProcessor->setValue('folio_seguimiento', $datosFormulario->folio_seguimiento);
+        $templateProcessor->setValue('suscribe', htmlspecialchars($nombreCompleto));
         $templateProcessor->setValue('caracter', htmlspecialchars("Tranquilo"));
         $templateProcessor->setValue('acredito', htmlspecialchars("Lo que se acredita"));
         $templateProcessor->setValue('cuentacas', htmlspecialchars("001001010006"));
@@ -32,7 +35,7 @@ class OficioService
         $templateProcessor->setValue('ciudadano', htmlspecialchars("Isaias Vidal"));
         $templateProcessor->setValue('telefono', htmlspecialchars("55 76 28 11 20"));
         $templateProcessor->setValue('correo', htmlspecialchars("jose_perez@gmail.com"));
-        $templateProcessor->setValue('ciudadano', htmlspecialchars("Ciudadano Modelo"));
+        $templateProcessor->setValue('ciudadano', htmlspecialchars($nombreCompleto));
 
         $uuid = Str::uuid()->toString();
         $idUser = $this->tipoUsuarioService->idUsuario($request); 

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\UsuarioTramite;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
 
 class UsuarioTramiteService
@@ -28,11 +29,18 @@ class UsuarioTramiteService
     }
 
     public function create($usuarioTramiteValidado,$request)
-    {
-       //$tipoUsuario = $this->tipoUsuarioService->idUsuario($request);
-       $usuarioTramiteValidado['user_id'] = $this->tipoUsuarioService->idUsuario($request);       
+    {       
+       $usuarioTramiteValidado['user_id'] = $this->tipoUsuarioService->idUsuario($request);
+
+       $tipoUsuario = $this->tipoUsuarioService->tipoUsuario($request);
+       $folio =  $tipoUsuario[0]->tipo.$usuarioTramiteValidado['ca_subtramite_id'].Carbon::now()->format('YmdHis').str_pad(rand(1, 999), 3, '0', STR_PAD_LEFT);
+       $usuarioTramiteValidado['folio_seguimiento'] = $folio;
+        
        $usuarioTramite = UsuarioTramite::create($usuarioTramiteValidado);
-       //print_r($usuarioTramiteValidado); exit();
+       
+       $notificacion = ["title" => "Notificación para inicio de tramite",
+                         "content" => "Iniciaste un tramite con el folio de seguimiento ".json_encode($usuarioTramite->folio_seguimiento)];
+        NotificacionService::notifica($request,$notificacion);
        
         return $usuarioTramite;
     }

@@ -15,6 +15,7 @@ class Tramite extends Model
         'descripcion',
         'detalle',
         'estatus',
+        'is_service',
         'tipo_usuarios_restringidos'
     ];
     protected $attributes = [

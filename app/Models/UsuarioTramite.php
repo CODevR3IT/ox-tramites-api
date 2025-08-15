@@ -14,6 +14,7 @@ class UsuarioTramite extends Model
         //'ca_tramite_id',
         'ca_subtramite_id',
         'ca_estatus_id',
+        'folio_seguimiento',
     ];
     protected $casts = ['datos_tramite'=>'array'];
     

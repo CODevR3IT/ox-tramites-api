@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('descripcion');
             $table->string('detalle')->nullable();
             $table->boolean('estatus');
+            $table->boolean('is_service')->nullable();
             $table->json('tipo_usuarios_restringidos')->nullable();
             //$table->foreignId('ca_tipo_usuario_id');
             $table->timestamps();

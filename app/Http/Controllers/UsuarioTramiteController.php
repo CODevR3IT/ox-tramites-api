@@ -31,12 +31,11 @@ class UsuarioTramiteController extends Controller
         ]);
        
         $usuarioTramite = app(UsuarioTramiteService::class);
-        $usuarioTramite->create($validate,$request);
-
-        $ofico = app(OficioService::class);
-        return $ofico->createAcuse($request,$usuarioTramite);
+        $resCreate = $usuarioTramite->create($validate,$request);        
         
-        //return UsuarioTramite::create($validate);
+        $ofico = app(OficioService::class);
+        return $ofico->createAcuse($request,$resCreate);        
+        
     }
 
     /**
