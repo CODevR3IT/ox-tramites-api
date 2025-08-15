@@ -56,20 +56,21 @@ class TramiteService
     public function showTramitesSubtramites($request)
     {
        
-        try {
-            Log::error("Lo que llega en sso_user ".json_encode($request->get('sso_user')));
+            try{
+            //Log::error("Lo que llega en sso_user ".json_encode($request->get('sso_user')));
              $tipoUsuario = $this->tipoUsuarioService->tipoUsuario($request);
+             Log::error("Lo que refresa tipousuario ".$tipoUsuario);
             if(isset($tipoUsuario[0]->id)){
                 $tipoUsuario = $tipoUsuario[0]->id;
             }
 
             $data = $request->all();
-            
+            Log::error("Lo que reresa data ".json_encode($data));
             $where = [];        
             foreach ($data as $key => $value) {
                 $where[] = [$key, "=", $value];            
             }
-
+            Log::error("Lo que trae where ".json_encode($where));
             $tramites = Tramite::where($where)
                 ->where(function($query) use ($tipoUsuario) {
                     $query->whereJsonDoesntContain('tipo_usuarios_restringidos', $tipoUsuario)
