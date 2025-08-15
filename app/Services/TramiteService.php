@@ -78,7 +78,7 @@ class TramiteService
                 ->orderBy('descripcion')
                 ->get();
 
-            //print_r(json_decode($tramites));
+            Log::error("Lo obtiene de tramites ".json_encode($tramites));
         
             foreach($tramites as $key => $tramite){                       
                 $whereS = [];
@@ -99,7 +99,7 @@ class TramiteService
                 })
                 ->orderBy('ca_tramites.descripcion')
                 ->get();
-
+                Log::error("Lo obtiene de SUBTRAMITES ".json_encode($subtramites));
                 $tramites[$key]['subtramites'] = $subtramites;
                 
             }
