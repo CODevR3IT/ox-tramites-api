@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\UsuarioTramite;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class UsuarioTramiteService
 {
@@ -35,7 +36,13 @@ class UsuarioTramiteService
        $usuarioTramiteValidado['user_id'] = $this->tipoUsuarioService->idUsuario($request);
 
        $tipoUsuario = $this->tipoUsuarioService->tipoUsuario($request);
-       $folio =  $tipoUsuario[0]->tipo.$usuarioTramiteValidado['ca_subtramite_id'].Carbon::now()->format('YmdHis').str_pad(rand(1, 999), 3, '0', STR_PAD_LEFT);
+       //Log::error("Lo que llega en tipoUsuaario ".json_encode($tipoUsuario));
+       if($tipoUsuario == 0){
+        $folio =  "A".$usuarioTramiteValidado['ca_subtramite_id'].Carbon::now()->format('YmdHis').str_pad(rand(1, 999), 3, '0', STR_PAD_LEFT);
+       }else{
+        $folio =  $tipoUsuario[0]->tipo.$usuarioTramiteValidado['ca_subtramite_id'].Carbon::now()->format('YmdHis').str_pad(rand(1, 999), 3, '0', STR_PAD_LEFT);
+       }
+       
        $usuarioTramiteValidado['folio_seguimiento'] = $folio;
         
        $usuarioTramite = UsuarioTramite::create($usuarioTramiteValidado);

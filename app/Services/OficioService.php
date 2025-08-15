@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 //use Dompdf\Dompdf;
+use Illuminate\Support\Facades\Log;
 
 class OficioService
 {
@@ -21,7 +22,10 @@ class OficioService
 
     public function createAcuse($request,$infoUsu,$datosFormulario)
     {
-        //print_r($infoUsu);
+        //Log::error("Lo que llega en infoUsu ".json_encode($infoUsu));
+        //Log::error("Lo que llega en datosFormulario ".json_encode($datosFormulario));
+        //Log::error("Lo que llega en infoUsu ".json_encode($request));
+
         $nombreCompleto = $infoUsu['nombre']." ".$infoUsu['primerApellido']." ".$infoUsu['segundoApellido'];
         $templatePath = storage_path("app/private/templates/template_servicios_cartograficos.docx");
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($templatePath);
