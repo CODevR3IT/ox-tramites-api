@@ -11,7 +11,9 @@ class TipoUsuarioService
         $data = $request->all();
         $where = [];
         foreach ($data as $key => $value) {
-            $where[] = [$key,"=",$value];            
+            if(!strstr($key,"/")){
+                $where[] = [$key,"=",$value];            
+            }
         }
         return TipoUsuario::where($where)
         ->orderBy('id')

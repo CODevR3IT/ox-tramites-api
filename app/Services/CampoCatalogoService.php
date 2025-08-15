@@ -11,7 +11,9 @@ class CampoCatalogoService
         $data = $request->all();
         $where = [];
         foreach ($data as $key => $value) {
-            $where[] = [$key,"=",$value];            
+            if(!strstr($key,"/")){
+                $where[] = [$key,"=",$value];            
+            }
         }
         return CampoCatalogo::where($where)
         ->orderBy('id')

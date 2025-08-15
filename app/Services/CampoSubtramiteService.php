@@ -11,7 +11,9 @@ class CampoSubtramiteService
         $data = $request->all();
         $where = [];
         foreach ($data as $key => $value) {
-            $where[] = [$key,"=",$value];            
+            if(!strstr($key,"/")){
+                $where[] = [$key,"=",$value];            
+            }
         }
         //print_r($where);
         return CampoSubtramite::where($where)

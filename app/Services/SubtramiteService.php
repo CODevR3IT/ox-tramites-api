@@ -51,8 +51,10 @@ class SubtramiteService
         
         $where = [];
         foreach ($data as $key => $value) {
-            $tablePrefix = str_contains($key, '.') ? '' : 'ca_subtramites.';
-            $where[] = [$tablePrefix . $key, "=", $value];          
+             if(!strstr($key,"/")){
+                $tablePrefix = str_contains($key, '.') ? '' : 'ca_subtramites.';
+                $where[] = [$tablePrefix . $key, "=", $value];          
+             }
         }
         
         return Subtramite::select(

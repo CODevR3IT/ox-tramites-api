@@ -11,7 +11,9 @@ class TipoCampoService
         $data = $request->all();
         $where = [];
         foreach ($data as $key => $value) {
-            $where[] = [$key,"=",$value];            
+             if(!strstr($key,"/")){
+                $where[] = [$key,"=",$value];            
+             }
         }
         return TipoCampo::where($where)
         ->orderBy('id')

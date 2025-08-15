@@ -41,7 +41,9 @@ class TramiteService
         
         $where = [];
         foreach ($data as $key => $value) {
-            $where[] = [$key, "=", $value];            
+            if(!strstr($key,"/")){
+                $where[] = [$key, "=", $value];            
+            }
         }
 
         return Tramite::where($where)

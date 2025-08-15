@@ -12,7 +12,9 @@ class DatoCatalogoService
         $data = $request->all();
         $where = [];
         foreach ($data as $key => $value) {
-            $where[] = [$key,"=",$value];            
+            if(!strstr($key,"/")){
+                $where[] = [$key,"=",$value];            
+            }
         }
 
          $info = json_decode(DatoCatalogo::where($where)
@@ -34,7 +36,9 @@ class DatoCatalogoService
         $data = $request->all();
         $where = [];
         foreach ($data as $key => $value) {
-            $where[] = [$key,"=",$value];            
+            if(!strstr($key,"/")){
+                $where[] = [$key,"=",$value];            
+            }
         }
 
          $info = json_decode(DatoCatalogo::where($where)
