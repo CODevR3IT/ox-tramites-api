@@ -108,7 +108,6 @@ class TramiteService
         } catch (\Exception $e) {
             Log::error("Error en el proceso: " . $e->getMessage(), [
                 'exception' => $e,
-                'user_id' => auth()->id(),
                 'data' => $request->all()
             ]);
         }
