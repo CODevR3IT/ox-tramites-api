@@ -57,6 +57,7 @@ class TramiteService
     {
        
         try {
+            Log::error("Lo que llega en sso_user ".json_encode($request->get('sso_user')));
              $tipoUsuario = $this->tipoUsuarioService->tipoUsuario($request);
             if(isset($tipoUsuario[0]->id)){
                 $tipoUsuario = $tipoUsuario[0]->id;
