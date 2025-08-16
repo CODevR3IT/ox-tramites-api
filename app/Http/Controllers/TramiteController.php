@@ -14,9 +14,12 @@ class TramiteController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {        
-        //return response()->json($tramites, 200);
+    {
         
+        /*$perPage = request()->input('per_page', 15); // 15 por defecto
+        $tramites = Tramite::paginate($perPage);
+        
+        return response()->json($tramites, 200);*/
         $tramiteService = app(TramiteService::class);
         return $tramiteService->todos($request);
     }
