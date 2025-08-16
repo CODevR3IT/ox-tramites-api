@@ -24,7 +24,7 @@ class SubtramiteService
         if(isset($tipoUsuario[0]->id)){
             $tipoUsuario = $tipoUsuario[0]->id;
         }
-
+        $perPage = request()->input('per_page', 15); // 15 por defecto
          $subtramites = Subtramite::select(
             'ca_subtramites.*', 
             'ca_tramites.descripcion as tramite_descripcion'
@@ -35,9 +35,10 @@ class SubtramiteService
                   ->orWhereNull('ca_subtramites.tipo_usuarios_restringidos');
         })
         ->orderBy('ca_tramites.descripcion')
-        ->get();
+        ->paginate($perPage);
 
-        return $subtramites;
+        //return $subtramites;
+        return response()->json($subtramites, 200);
     }
 
     public function show($request)
@@ -57,8 +58,10 @@ class SubtramiteService
                 $where[] = [$tablePrefix . $key, "=", $value];          
              }
         }
+
+        $perPage = request()->input('per_page', 15); // 15 por defecto
         
-        return Subtramite::select(
+        $subtramites = Subtramite::select(
             'ca_subtramites.*',
             'ca_tramites.descripcion as tramite_descripcion'
         )
@@ -69,8 +72,11 @@ class SubtramiteService
                 ->orWhereNull('ca_subtramites.tipo_usuarios_restringidos');
         })
         ->orderBy('ca_tramites.descripcion')
-        ->get();
+        ->paginate($perPage);
+
+        return response()->json($subtramites, 200);
     }
+    
     public static function showId($id)
     {        
         $where = [];
