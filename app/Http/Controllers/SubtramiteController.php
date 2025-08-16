@@ -25,7 +25,8 @@ class SubtramiteController extends Controller
      */
     public function create(Request $request)
     {
-         $validate = $request->validate([            
+         $validate = $request->validate([
+            'clave'=>'string|max:5',            
             'descripcion'=>'required|string|max:255',
             'detalle'=>'string|max:999',
             'ca_tramite_id'=>'required|exists:App\Models\Tramite,id',

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Subtramite;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 
 class SubtramiteService
 {
@@ -70,10 +71,20 @@ class SubtramiteService
         ->orderBy('ca_tramites.descripcion')
         ->get();
     }
+    public static function showId($id)
+    {        
+        $where = [];
+
+        $where[] = ['id',"=",$id];
+        $where[] = ['estatus',"=",true];
+        
+        return Subtramite::where($where)
+        ->orderBy('id')
+        ->get();
+    }
 
     public static function create($subtramiteValidado)
-    {
-        error_log(json_encode($subtramiteValidado));
+    {         
        $tramite = Subtramite::create($subtramiteValidado);       
         return $tramite;
     }

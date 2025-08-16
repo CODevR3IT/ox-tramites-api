@@ -24,9 +24,11 @@ class TramiteService
             $tipoUsuario = $tipoUsuario[0]->id;
         }
 
+        $perPage = request()->input('per_page', 15); // 15 por defecto
         $tramites = Tramite::whereJsonDoesntContain('tipo_usuarios_restringidos', $tipoUsuario)
                       ->orWhereNull('tipo_usuarios_restringidos')
-                      ->get();
+                      ->paginate($perPage);               
+        
         return response()->json($tramites, 200);
     }
 
@@ -46,19 +48,23 @@ class TramiteService
             }
         }
 
-        return Tramite::where($where)
+        $perPage = request()->input('per_page', 15); // 15 por defecto
+
+        $tramites = Tramite::where($where)
             ->where(function($query) use ($tipoUsuario) {
                 $query->whereJsonDoesntContain('tipo_usuarios_restringidos', $tipoUsuario)
                     ->orWhereNull('tipo_usuarios_restringidos');
             })
             ->orderBy('descripcion')
-            ->get();
+            ->paginate($perPage);               
+        
+        return response()->json($tramites, 200);
     }
 
     public function showTramitesSubtramites($request)
     {
        
-            try{
+            try{            
             //Log::error("Lo que llega en sso_user ".json_encode($request->get('sso_user')));
              $tipoUsuario = $this->tipoUsuarioService->tipoUsuario($request);
              //Log::error("Lo que refresa tipousuario ".$tipoUsuario);

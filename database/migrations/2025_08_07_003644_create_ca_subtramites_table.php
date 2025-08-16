@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('ca_subtramites', function (Blueprint $table) {
-            $table->id();            
+            $table->id();
+            $table->string('clave')->nullable();            
             $table->string('descripcion');
             $table->string('detalle')->nullable();
             $table->boolean('estatus');

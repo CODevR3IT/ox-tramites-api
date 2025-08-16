@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\TipoUsuario;
+use Illuminate\Support\Facades\Log;
 
 class TipoUsuarioService
 {
@@ -22,14 +23,26 @@ class TipoUsuarioService
 
     public static function tipoUsuario($request)
     {
-        $user = $request->get('sso_user');
+        $user = $request->get('sso_user');        
         if(isset($user['person']['registerType']) && isset($user['person']['personType'])){
             $tipoUsuarioLogin = trim($user['person']['registerType'])." ".trim($user['person']['personType']);
-            //error_log(json_encode($user));
+            
             $where[] = ["descripcion","=",$tipoUsuarioLogin];
             return TipoUsuario::where($where)
             ->orderBy('id')
             ->get();
+        }elseif(isset($user['roles'][0]['roleKey'])){
+            
+            $tipoRolLogin = trim($user['roles'][0]['roleKey']);
+            $where[] = ["descripcion","=",$tipoRolLogin];
+            $tipoUsuario = TipoUsuario::where($where)
+            ->orderBy('id')
+            ->get();
+            if(count($tipoUsuario) > 0){
+                return $tipoUsuario;
+            }else{
+                return 0;    
+            }            
         }else{
             return 0;
         }       
