@@ -30,7 +30,7 @@ class SubtramiteController extends Controller
             'descripcion'=>'required|string|max:255',
             'detalle'=>'string|max:999',
             'ca_tramite_id'=>'required|exists:App\Models\Tramite,id',
-            'tipo_usuarios_restringidos' => 'json',
+            'tipo_usuarios_restringidos' => 'nullable|json',
             //'ca_tipo_usuario_id'=>'required|exists:App\Models\TipoUsuario,id',
         ]);
 
@@ -93,7 +93,7 @@ class SubtramiteController extends Controller
             'ext2' => 'string|in:jpg,jpeg,png,gif,webp,pdf,xlsx,xls,dxf',
             'nombre2' => 'string',
             'ca_tramite_id'=>'exists:App\Models\Tramite,id',
-            'tipo_usuarios_restringidos' => 'json',
+            'tipo_usuarios_restringidos' => 'nullable|json',
         ]);
 
         $subtramite = SubtramiteService::update($validate);

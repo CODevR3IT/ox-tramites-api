@@ -34,7 +34,7 @@ class TramiteController extends Controller
             'descripcion'=>'required|string|max:255',
             'detalle'=>'string|max:999',
             'is_service'=> 'boolean',
-            'tipo_usuarios_restringidos' => 'json',
+            'tipo_usuarios_restringidos' => 'nullable|json',
             //'ca_tipo_usuario_id'=>'required|exists:App\Models\TipoUsuario,id',
         ]);
         //Log::error("Lo que voy a mandara create ".json_encode($validate));
@@ -87,7 +87,7 @@ class TramiteController extends Controller
             'descripcion'=>'string|max:255',
             'detalle'=>'string|max:999',
             'estatus'=>'boolean:strict',
-            'tipo_usuarios_restringidos' => 'json',
+            'tipo_usuarios_restringidos' => 'nullable|json',
             //'ca_tipo_usuario_id'=>'required|exists:App\Models\TipoUsuario,id',
         ]);
         

@@ -137,7 +137,7 @@ class TramiteService
     }
 
     public static function update($tramiteValidado)
-    {       
+    { error_log(json_encode($tramiteValidado));     
         $id = $tramiteValidado['id'];
         unset($tramiteValidado['id']);
         $where = $tramiteValidado;        
