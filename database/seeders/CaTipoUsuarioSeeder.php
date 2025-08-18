@@ -18,7 +18,7 @@ class CaTipoUsuarioSeeder extends Seeder
             ['tipo'=>'M','descripcion'=>'CONTRIBUYENTE MORAL', 'estatus'=>true, 'created_at' => DB::raw('now()')],
             ['tipo'=>'N','descripcion'=>'NOTARIO FISICA', 'estatus'=>true, 'created_at' => DB::raw('now()')],
             ['tipo'=>'I','descripcion'=>'INSTITUCION MORAL', 'estatus'=>true, 'created_at' => DB::raw('now()')],
-            ['tipo'=>'A','descripcion'=>'ADMIN', 'estatus'=>true, 'created_at' => DB::raw('now()')],
+            //['tipo'=>'A','descripcion'=>'ADMIN', 'estatus'=>true, 'created_at' => DB::raw('now()')],
         ];
 
         DB::table('ca_tipo_usuarios')->insert($tiposUsuarios);

@@ -37,11 +37,11 @@ class UsuarioTramiteService
 
        $tipoUsuario = $this->tipoUsuarioService->tipoUsuario($request);
        //Log::error("Lo que llega en tipoUsuaario ".json_encode($tipoUsuario));
-       if($tipoUsuario == 0){
+       /*if($tipoUsuario == 0){
         $folio =  "X".$usuarioTramiteValidado['ca_subtramite_id'].Carbon::now()->format('YmdHis').str_pad(rand(1, 999), 3, '0', STR_PAD_LEFT);
-       }else{
+       }else{*/
         $folio =  $tipoUsuario[0]->tipo.$usuarioTramiteValidado['ca_subtramite_id'].Carbon::now()->format('YmdHis').str_pad(rand(1, 999), 3, '0', STR_PAD_LEFT);
-       }
+       //}
        
        $usuarioTramiteValidado['folio_seguimiento'] = $folio;
         

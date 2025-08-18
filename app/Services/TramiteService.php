@@ -64,7 +64,9 @@ class TramiteService
     public function showTramitesSubtramites($request)
     {
        
-            try{            
+            try{
+            //$perPage = request()->input('per_page', 15); // 15 por defecto
+
             //Log::error("Lo que llega en sso_user ".json_encode($request->get('sso_user')));
              $tipoUsuario = $this->tipoUsuarioService->tipoUsuario($request);
              //Log::error("Lo que refresa tipousuario ".$tipoUsuario);
@@ -88,6 +90,7 @@ class TramiteService
                 })
                 ->orderBy('descripcion')
                 ->get();
+                //->paginate($perPage);
 
             //Log::error("Lo obtiene de tramites ".json_encode($tramites));
         

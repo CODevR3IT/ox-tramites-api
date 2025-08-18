@@ -31,7 +31,7 @@ class TipoUsuarioService
             return TipoUsuario::where($where)
             ->orderBy('id')
             ->get();
-        }elseif(isset($user['roles'][0]['roleKey'])){
+        }/*elseif(isset($user['roles'][0]['roleKey'])){
             
             $tipoRolLogin = trim($user['roles'][0]['roleKey']);
             $where[] = ["descripcion","=",$tipoRolLogin];
@@ -45,7 +45,7 @@ class TipoUsuarioService
             }            
         }else{
             return 0;
-        }       
+        }*/       
          
     }
 
