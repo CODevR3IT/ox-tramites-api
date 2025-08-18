@@ -32,7 +32,7 @@ class UsuarioTramiteController extends Controller
        
         $usuarioTramite = app(UsuarioTramiteService::class);
         $resCreate = $usuarioTramite->create($validate,$request);        
-        
+        error_log("EL resultado de resCreate".json_encode($resCreate));
         $ofico = app(OficioService::class);
         return $ofico->createAcuse($request,$request->get('sso_user'),$resCreate);        
         

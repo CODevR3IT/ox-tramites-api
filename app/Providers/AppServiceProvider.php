@@ -37,10 +37,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(OficioService::class, function ($app) {
             return new OficioService($app->make(TipoUsuarioService::class));
         });
-
-        $this->app->bind(UsuarioTramiteService::class, function ($app) {
-            return new UsuarioTramiteService($app->make(SubtramiteService::class));
-        });
     }
 
     /**

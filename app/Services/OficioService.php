@@ -22,9 +22,9 @@ class OficioService
 
     public function createAcuse($request,$infoUsu,$datosFormulario)
     {
-        //Log::error("Lo que llega en infoUsu ".json_encode($infoUsu));
-        //Log::error("Lo que llega en datosFormulario ".json_encode($datosFormulario));
-        //Log::error("Lo que llega en infoUsu ".json_encode($request));
+        Log::error("Lo que llega en infoUsu ".json_encode($infoUsu));
+        Log::error("Lo que llega en datosFormulario ".json_encode($datosFormulario));
+        Log::error("Lo que llega en infoUsu ".json_encode($request));
 
         $nombreCompleto = $infoUsu['nombre']." ".$infoUsu['primerApellido']." ".$infoUsu['segundoApellido'];
         $templatePath = storage_path("app/private/templates/template_servicios_cartograficos.docx");
